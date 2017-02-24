@@ -27,15 +27,18 @@ app.post('/build', (req, res) => {
 	// Get the files.
 	const files = req.body;
 
+
 	// Create a random key.
 	const key = Crypto.randomBytes(16).toString('hex');
 
 	// Setup helper functions.
 	const clean = () => {
+		console.log(TMP + key);
 		Exec('rm -rf ' + TMP + key);
 	};
 
 	const sendError = err => {
+		console.log("error" + err);
 		res.json({ error: err });
 		clean();
 	};
@@ -51,7 +54,7 @@ app.post('/build', (req, res) => {
 		});
 
 		// Copy all the files.
-		for (const file in files) {
+		for (file in files) {
 			yield new Promise((resolve, reject) => {
 				const fileName = file.replace('qmk_firmware', TMP + key);
 				Fs.writeFile(fileName, files[file], err => {
