@@ -196,7 +196,7 @@ void clear_macro_mods(void) { macro_mods = 0; }
 #ifndef NO_ACTION_ONESHOT
 void set_oneshot_mods(uint8_t mods)
 {
-    oneshot_mods = mods;
+    oneshot_mods |= mods;
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = timer_read();
 #endif
